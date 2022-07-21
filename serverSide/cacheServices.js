@@ -8,11 +8,10 @@ const PRUEBA_ROUTE = './public/prueba.txt'
 
 ///API created by Matias Gutierrez which show the movies on screen in Mar del Plata, Argentina.
 const APIMG_URL = 'https://que-vemos-production.up.railway.app/'
-const APIMG_ROUTE = './public/APIMG.json' //ToDo pasarlo a un config
 
 
 // API TMDB
-const APITMDB_ROUTE = './public/APITMDB.json'
+const API_ROUTE = './public/API.json'
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = 'fa6388411407ff89baf547cef93494ca' //move to other place
 const API_LANGUAGE = 'es-MX'
@@ -53,35 +52,59 @@ const creditsEndpoint = (movieId) => { return `${API_URL}movie/${movieId}/credit
 
 // API MG
 
-const getMoviesTitlesFromAPIMG = (data) => {
-    let moviesTitles = [];
 
-    for (const movie in data) {
-        console.log(data[movie].titulo);
-        moviesTitles.push(data[movie].titulo)
-    }
-    return moviesTitles;
-}
 
-const movieInfoFromTitles = async (titles, addInfo) => {
-    for (const title of titles) {
-        await fetch(movieByNameEndpoint(title)).then(async (res) => {
-            console.log(`La salida es ${movieByNameEndpoint(title)}`)
+const movieInfoFromTitles = async (APIMG, addInfo) => {
+    console.log(APIMG)
+    for (const title in APIMG) {
+        await fetch(movieByNameEndpoint(APIMG[title].titulo)).then(async (res) => {
+            
             let json = await res.json()
 
             if (json.results[0]) {
                 id = json.results[0].id
                 await fetch(movieInfoEndpoint(id)).then(async (res) => {
                     json = await res.json()
-                    console.log({...json,id})
-                    addInfo(json)
+    
+                    await fetch(creditsEndpoint(id)).then(async (resCredits) => {
+                        credits = await resCredits.json()
+                        filtrateCredits(credits)
+                        const funciones = APIMG[title].funciones
+                        json.id = title
+                        json = { ...json, credits, funciones  }
+                        addInfo(json)
 
+                    })
                 })
-            }
-            //console.log(json);
-            //addInfo(json.results[0])
+                //console.log(json);
+                //addInfo(json.results[0])
 
+            }
+            else {
+                addInfo(
+                    { 'title': APIMG[title].titulo, 'funciones': APIMG[title].funciones, "id": title, "popularity": 0}
+                )
+            }
         })
+
+    }
+}
+
+//filtrateCredits just 6 actors and director, i maybe i could put everyone half as famous of the most famous one
+const NUMBER_OF_ACTORS = 6
+
+
+const filtrateCredits = function (credits) {
+    credits.cast = credits.cast.sort((a, b) => b.popularity - a.popularity).slice(0, NUMBER_OF_ACTORS)
+
+    for (number in credits.cast) {
+        const { name, popularity, ...rest } = credits.cast[number]
+        credits.cast[number] = { name }
+    }
+    credits.crew = credits.crew.filter((a) => a.job == 'Director');
+    for (number in credits.crew) {
+        const { name, job, ...rest } = credits.crew[number]
+        credits.crew[number] = { name }
     }
 }
 
@@ -122,17 +145,15 @@ const cacheServices = {
             json = await data.json()
             correctTitles(json)
             mersh(json);
-            let titles = getMoviesTitlesFromAPIMG(json)
-            saveFile(JSON.stringify(json), APIMG_ROUTE);
 
 
             //Save info about movies from TMDB
             const moviesInfo = []
             function addInfo(x) { moviesInfo.push(x) }
-            await movieInfoFromTitles(titles, addInfo);
-        
-            saveFile(JSON.stringify(moviesInfo), APITMDB_ROUTE)
-          
+            await movieInfoFromTitles(json, addInfo);
+
+            saveFile(JSON.stringify(moviesInfo), API_ROUTE)
+
         })
     }
 }

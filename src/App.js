@@ -1,19 +1,28 @@
 import logo from './logo.svg';
+
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 
 import Home from './components/Home';
 import Header from './components/Header';
+import Movie from './components/Movie';
 // Styles
-import {GlobalStyle} from './globalStyle.js';
+import { GlobalStyle } from './globalStyle.js';
 
 
 function App() {
   return (
-    <div className="App" >
-      <GlobalStyle />
+    <Router>
+      <div className="App" >
       <Header/>
-      <Home />
-    </div>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/:movieId' element={<Movie />} />
+        </Routes>
+      </div>
+      <GlobalStyle/>
+    </Router>
   );
 }
 

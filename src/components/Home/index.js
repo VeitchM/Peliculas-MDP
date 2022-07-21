@@ -8,33 +8,35 @@ import Thumb from '../Thumb'
 import Menu from '../Menu'
 
 // Hooks 
-import {useHome} from '../../hooks/useHome'
+import { useHome } from '../../hooks/useHome'
+
+
+//Image
+import NoImage from '../../images/no_image.jpg';
 
 // API
-import {IMAGE_BASE_URL,POSTER_SIZE, BACKDROP_SIZE} from "../../API.js"
+import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../API.js"
 
 const Home = () => {
 
-    const {moviesInfo, mostPopularFilm} = useHome()
-    console.log("lalal"+ moviesInfo.API_TMDB)
-    console.log("lalal"+ mostPopularFilm)
+    const { moviesInfo, isLoading, mostPopularFilm, error } = useHome()
     return (
-        <>  
+        <>
 
-{moviesInfo.API_TMDB && mostPopularFilm ? (
-        <BigImage 
-            image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${moviesInfo.API_TMDB[mostPopularFilm].backdrop_path}`}
-            title={moviesInfo.API_TMDB[mostPopularFilm].title} 
-            text={moviesInfo.API_TMDB[mostPopularFilm].overview} 
-              
-            />       
-        )
-        : <></>}
-        <Menu>
+            {moviesInfo && mostPopularFilm ? (
+                <BigImage
+                    image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${moviesInfo[mostPopularFilm].backdrop_path}`}
+                    title={moviesInfo[mostPopularFilm].title}
+                    text={moviesInfo[mostPopularFilm].overview}
 
-        </Menu>
+                />
+            )
+                : <></>}
+            <Menu>
+
+            </Menu>
             <Billboard header='Peliculas en Cartelera' >
-                {moviesInfo.API_TMDB && moviesInfo.API_TMDB.map(movie => (
+                {moviesInfo && moviesInfo.map(movie => (
                     <Thumb
                         key={movie.id}
                         clickable={true}
@@ -42,9 +44,10 @@ const Home = () => {
                             movie.poster_path
                                 ?
                                 IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path
-                                : null
+                                : NoImage
                         }
                         movieId={movie.id}
+                        title={movie.title}
 
                     />
                 )

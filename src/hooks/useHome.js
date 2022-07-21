@@ -1,54 +1,34 @@
 import { useState, useEffect } from 'react'
-import { getMoviesInfo, isPersistedState } from '../services/dataServices'
-const initialState = {
-    API_TMDB: null,
-    API_MG: null,
-}
+import { effectLoadMoviesInfoAndSave } from '../services/dataServices'
+
 
 export const useHome = () => {
-    const [moviesInfo, setMoviesInfo] = useState(initialState)
+    const [moviesInfo, setMoviesInfo] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [mostPopularFilm, setMostPopularFilm] = useState(null)
-
-    const loadMoviesInfo = async () => {
-        try {
-            setIsLoading(true)
-            const info = await getMoviesInfo()
-            // Saving in sessionStorage
-            sessionStorage.setItem('MoviesInfo', JSON.stringify(info))
+    const [error, setError] = useState(false)
 
 
-        }
-        catch (err) { console.log(err) }
-
-        setIsLoading(false)
-    }
 
     useEffect(() => {
-        const sessionState = isPersistedState('MoviesInfo');
-        if (sessionState) {
-            console.log(' Grabbing from session Storage');
-            setMoviesInfo(sessionState)
-            return;
-        }
-        loadMoviesInfo()
+        effectLoadMoviesInfoAndSave(setMoviesInfo, setIsLoading)
     }, []);
 
     useEffect(() => {
-        if (moviesInfo.API_MG) {
+        if (moviesInfo) {
 
-            let maxPopularity = 0
-            let movie = 0
-            for (movie in moviesInfo.API_TMDB)
-                if (moviesInfo.API_TMDB[movie].popularity > maxPopularity)
-                    maxPopularity = moviesInfo.API_TMDB[movie].popularity;
-            setMostPopularFilm(movie);
-            console.log(moviesInfo.API_TMDB[movie].title)
+            let mostPopular = 0
+            let movie = 1
+            for (movie in moviesInfo) {
+                if (moviesInfo[movie].popularity > moviesInfo[mostPopular].popularity) 
+                    mostPopular = movie
+            }
+            setMostPopularFilm(mostPopular);
         }
 
 
     }, [moviesInfo])
 
-return { moviesInfo, mostPopularFilm }
+    return { moviesInfo, isLoading, mostPopularFilm, error }
 }
 

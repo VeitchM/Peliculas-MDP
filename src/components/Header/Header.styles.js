@@ -12,9 +12,10 @@ export const Content = styled.div`
         max-width: var(--maxWidth);
         padding: 20px 0;
         margin: 0 auto;
+        max-height: 100px;
         `;
 export const LogoImg = styled.img`
-    width: 200px;
+    height: 100px;
 
     @media screen and (max-width: 500px){
         width: 150px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../../config';
+import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../../../API';
 
 export const Wrapper = styled.div`
     background: ${({ backdrop }) =>
@@ -46,7 +46,8 @@ export const Text = styled.div`
 
     .rating-directors{
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
+    
     }
 
     .score {
@@ -67,6 +68,19 @@ export const Text = styled.div`
         
         p{
             margin:0;
+        }
+    }
+    .actoresYTitulo{
+        margin: 0 0 0 40px;
+        width: 1000px;
+        text-align: left;
+    }
+
+    .actores{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 150px );
+        p{
+            margin:5px;
         }
     }
 
