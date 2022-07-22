@@ -20,6 +20,7 @@ margin: 10px;
 
 img{
     width:100%;
+    max-width: 400px;
     padding: 60px;
 }
 
