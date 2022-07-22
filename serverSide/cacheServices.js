@@ -160,8 +160,10 @@ const cacheServices = {
 
 
 
-
+const MILI_SECONDS_IN_A_DAY = 24*3600*1000
+const DAYS = 3
 cacheServices.start();
+setInterval(() => cacheServices.start(),MILI_SECONDS_IN_A_DAY*DAYS);
 
 //export default cacheServices;
 
