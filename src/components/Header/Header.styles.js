@@ -18,14 +18,14 @@ export const LogoImg = styled.img`
     height:60px;
 
     @media screen and (max-width: 500px){
-        width: 40px;
-        height: 100%;
+        height: 70px;
+        
     }
 `;
     
 export const TMDBLogoImg = styled.img`
     width: 100px;
     @media screen and (max-width: 500px){
-        width: 80px;
+        height: 70px;
     }
 `;
