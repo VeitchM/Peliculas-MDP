@@ -15,10 +15,12 @@ border-radius: 20px;
 display: flex;
 align-items: center;
 justify-content: left;
-padding-left: 60px;
-min-height: 150px;
+min-height: 300px;
 margin: 10px;
 
-
+img{
+    width:100%;
+    padding: 60px;
+}
 
 `

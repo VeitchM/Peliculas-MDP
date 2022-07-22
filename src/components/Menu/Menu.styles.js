@@ -6,8 +6,8 @@ export const Button = styled.div`
     border-start-end-radius: 20px;
     background: var(--darkGrey);
     transition: all 0.7s;
-    padding-inline-start: 30px;
-    padding-inline-end: 50px;
+    padding-inline-start: 20px;
+    padding-inline-end: 40px;
     height: 100%;
     .Link{
         height: 300px;
