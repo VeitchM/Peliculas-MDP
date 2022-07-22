@@ -32,9 +32,7 @@ const Home = () => {
                 />
             )
                 : <></>}
-            <Menu>
-
-            </Menu>
+            <Menu />
             <Billboard header='Peliculas en Cartelera' >
                 {moviesInfo && moviesInfo.map(movie => (
                     <Thumb

@@ -12,13 +12,14 @@ export const Content = styled.div`
         max-width: var(--maxWidth);
         padding: 20px 0;
         margin: 0 auto;
-        max-height: 100px;
+        max-height: 60px;
         `;
 export const LogoImg = styled.img`
-    height: 100px;
+    height:60px;
 
     @media screen and (max-width: 500px){
-        width: 150px;
+        width: 40px;
+        height: 100%;
     }
 `;
     

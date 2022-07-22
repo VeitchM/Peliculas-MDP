@@ -1,22 +1,8 @@
 import React from "react";
 import {Cell} from './ByMovie.styles'
 import Row from '../Row'
+import {separateByCinema} from '../../../services/schedulesServices'
 
-const separateByCinema = (funciones) => {
-    const cinemas = [];
-    for (const funcion in funciones) {
-        const cine = cinemas.find(
-            cinema => cinema.name === funciones[funcion].cinema)
-        if (cine !== undefined) {
-            cine.funciones.push(funciones[funcion]);
-        }
-        else {
-            cinemas.push({ "name": funciones[funcion].cinema, 'funciones': [funciones[funcion]] })
-        }
-    }
-    return cinemas
-
-}
 
 
 const ByMovie = ({ movie }) => {

@@ -43,14 +43,28 @@ export const Text = styled.div`
     padding: 20px 40px;
     color: var(--white);
     overflow: hidden;
-
+    text-align:left;
+    
+   
     .rating-directors{
+
         display: flex;
-        justify-content: center;
+   
+
+        
+        @media screen and (max-width: 900px){
+            display: block;
+
+        }
+     
     
     }
 
+    .rating{
+        margin-left: 20px;
+    }
     .score {
+        
         display:flex;
         align-items:center;
         justify-content:center;
@@ -60,24 +74,26 @@ export const Text = styled.div`
         color: #000;
         font-weight: 800;
         border-radius: 50%;
-        margin: 0;
+        margin-left: 20px;
     }
 
     .director{
-        margin: 0 0 0 40px;
-        
-        p{
-            margin:0;
-        }
+        margin-left: 20px;
     }
+
     .actoresYTitulo{
-        margin: 0 0 0 40px;
-        width: 1000px;
-        text-align: left;
+        margin-left: 20px;
+        
+        width: 100%;
+        justify-content: left;
+        
     }
 
     .actores{
+        
         display: grid;
+        justify-content: left;
+    
         grid-template-columns: repeat(auto-fill, 150px );
         p{
             margin:5px;
@@ -89,5 +105,10 @@ export const Text = styled.div`
             font-size: var(--fontBig)
         }
     }
+
+   
+
+  
+    
 
 `;

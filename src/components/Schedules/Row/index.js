@@ -21,7 +21,8 @@ const Row = ({ cinema }) => {
                 {funciones.map((funcion) => (
 
                     <Cell>
-                        <h3> {funcion.hora}</h3>
+                        <h2> {funcion.hora}</h2>
+                        {funcion.title && <h3>{funcion.title}</h3>}
                         <p> {funcion.idioma}</p>
                     </Cell>
                 ))}

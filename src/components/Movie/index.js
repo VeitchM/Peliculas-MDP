@@ -23,7 +23,7 @@ const Movie = () => {
 
     const { movieId } = useParams();
     const { moviesInfo, loading, error,mostPopularFilm } = useHome()
-    if (moviesInfo) {
+    if (moviesInfo && !error) {
         console.log("ConsoleLog de Movie.index",moviesInfo)
         let movie = moviesInfo.find( (movie) => movie.id == movieId)
         if (loading) return <Spinner />
@@ -31,7 +31,7 @@ const Movie = () => {
 
         return (
             <>
-                <BreadCrumb movieTitle={movie.title} />
+                <BreadCrumb title={movie.title} />
                 <MovieInfo movie={movie} />
                 <MovieInfoBar
                     time={movie.runtime}/>

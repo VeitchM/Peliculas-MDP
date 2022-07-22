@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Wrapper, Content, Text} from './BigImage.styles';
 
-const HeroImage = ({image, title, text}) => {
+const BigImage = ({image, title, text}) => {
     return (
     <Wrapper image = {image}>
         <Content>
@@ -15,10 +15,10 @@ const HeroImage = ({image, title, text}) => {
 );
 }
 
-HeroImage.propTypes = {
+BigImage.propTypes = {
     image: PropTypes.string,
     title: PropTypes.string,
     text: PropTypes.string
 };
 
-export default HeroImage;
+export default BigImage;

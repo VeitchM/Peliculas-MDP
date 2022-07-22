@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     var(--darkGrey);
     background-size: 100%,cover;
     background-position: center;
-    height: 600px;
+    height: 500px;
     position: relative;
     animation: animateHeroImage 1s;
     

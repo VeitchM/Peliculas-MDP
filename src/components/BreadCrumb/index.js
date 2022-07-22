@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 // Styles
 import { Wrapper, Content } from './BreadCrumb.styles';
 
-const BreadCrumb = ({movieTitle}) => (
+const BreadCrumb = ({title}) => (
     <Wrapper>
         <Content>
             <Link to='/'>
                 <span>Home</span>
             </Link>
             <span>|</span>
-            <span>{movieTitle}</span>
+            <span>{title}</span>
         </Content>
 
     </Wrapper>
