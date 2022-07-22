@@ -8,20 +8,21 @@ const names = ["Cartelera", "Cines", "Peliculas por Dia"]
 
 const Menu = () => (
     <Wrapper>
-        {names.map(name =>
 
-        (<Link to={`/${name}`} style={{textDecoration: 'none'}}>
-            <>
+        {names.map(name => (
             <Button name={name}>
-                <p> {name}</p>
-            </Button>
-            </>
-        </Link>
-        )
-        )
+                <Link to={`/${name}`} style={{ textDecoration: 'none' }}>
+                    <p> {name}</p>
 
+                </Link>
+
+
+            </Button>
+        ))
         }
-    </Wrapper>
+            
+            
+            </Wrapper>
 );
 
 export default Menu
